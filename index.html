@@ -1,0 +1,203 @@
+```html
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaChau-Sense: IoT & Hộ Chiếu Số Nước Mắm Sa Châu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans + Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-red': {
+                            950: '#2b0306',
+                            900: '#43060a',
+                            850: '#54090f',
+                            800: '#6f0c15',
+                            700: '#8e141f',
+                            600: '#b01d2a',
+                            500: '#d32635'
+                        },
+                        'sc-gold': {
+                            DEFAULT: '#F59E0B',
+                            light: '#FDE68A',
+                            dark: '#B45309',
+                            royal: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                        mono: ['"Space Grotesk"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* KHÓA MÀU NỀN VÀ TRÁNH MẤT MÀU */
+        body {
+            background-color: #2b0306 !important;
+            color: #fff1f2;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Họa tiết gấm cung đình chìm màu đỏ ruby */
+        .royal-damask-bg {
+            background-color: #43060a;
+            background-image: 
+                radial-gradient(#6f0c15 1.5px, transparent 1.5px),
+                radial-gradient(#8e141f 1.5px, #43060a 1.5px);
+            background-size: 36px 36px;
+            background-position: 0 0, 18px 18px;
+        }
+
+        .royal-gradient-card {
+            background: linear-gradient(145deg, #54090f 0%, #3a0408 100%);
+          border: 1px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* KHUNG LOGO TRẮNG GIỮ CHỖ VIỀN NÉT ĐỨT */
+        .logo-box-placeholder {
+            background-color: #ffffff !important;
+            border: 2px dashed #D4AF37 !important;
+            color: #54090f !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s ease;
+        }
+        .logo-box-placeholder:hover {
+            border-color: #f59e0b !important;
+            transform: scale(1.03);
+        }
+
+        /* Hiệu ứng ánh vàng hoàng gia */
+        .gold-glow {
+            text-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Tùy chỉnh thanh cuộn màu đỏ mắm */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2b0306;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8e141f;
+            border-radius: 4px;
+            border: 1px solid #D4AF37;
+        }
+
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid rgba(245, 158, 11, 0.3);
+            border-top: 4px solid #f59e0b;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="selection:bg-sc-gold selection:text-sc-red-950">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-sc-red-950 border-b border-sc-gold/25 py-2 px-4 text-xs font-mono text-sc-gold-light">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Dự án Cấp Tỉnh: <strong>SaChau-Sense</strong> - Hữu Xạ Tự Nhiên Hương</span>
+            </div>
+            <div class="flex items-center gap-4 text-[11px] text-amber-200/80">
+                <span><i class="fa-solid fa-location-dot text-sc-gold mr-1"></i> Xã Giao Châu, Giao Thủy, Nam Định</span>
+                <span class="hidden md:inline">•</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i> Chứng Nhận OCOP 3 Sao</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR HEADER -->
+    <header class="sticky top-0 z-40 bg-sc-red-900/95 backdrop-blur-md border-b-2 border-sc-gold/40 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-20">
+                
+                <!-- BRAND & LOGO THỰC TẾ -->
+                <a href="#hero" onclick="switchMainView('home')" class="flex items-center gap-3.5 group cursor-pointer">
+                    <img src="IMG_20261112_075425.png" alt="SaChau-Sense Logo" class="w-14 h-14 rounded-2xl object-cover border border-sc-gold/40 shadow-md shrink-0">
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-cinzel font-black text-2xl tracking-wide text-white">SACHAU<span class="text-sc-gold">-SENSE</span></span>
+                        </div>
+                        <p class="text-[10px] text-amber-200/90 tracking-widest uppercase font-mono font-medium">IoT & Hộ Chiếu Số Làng Nghề</p>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAVIGATION -->
+                <nav class="hidden xl:flex items-center gap-6 text-sm font-semibold text-rose-100">
+                    <button onclick="switchMainView('home'); scrollToSection('hero')" class="hover:text-sc-gold transition">Trang Chủ</button>
+                    <button onclick="switchMainView('home'); scrollToSection('heritage')" class="hover:text-sc-gold transition">Di Sản Sa Châu</button>
+                    <button onclick="switchMainView('home'); scrollToSection('process')" class="hover:text-sc-gold transition">Quy Trình 5 Bước</button>
+                    <button onclick="switchMainView('home'); scrollToSection('products')" class="hover:text-sc-gold transition">Sản Phẩm Mắm</button>
+                    <button onclick="switchMainView('home'); scrollToSection('culinary')" class="hover:text-sc-gold transition flex items-center gap-1.5 text-yellow-300">
+                        <i class="fa-solid fa-utensils text-xs text-sc-gold"></i>
+                        <span>Vào Bếp</span>
+                    </button>
+                    <button onclick="switchMainView('passport-app')" class="hover:text-amber-300 transition flex items-center gap-1.5 text-sc-gold-light bg-sc-red-950 px-3.5 py-1.5 rounded-xl border border-sc-gold/50 shadow">
+                        <i class="fa-solid fa-id-card-clip text-sc-gold"></i>
+                        <span>Hộ Chiếu Số & Cửa Hàng</span>
+                    </button>
+                </nav>
+
+                <!-- ACTIONS: AUTH & CART -->
+                <div class="flex items-center gap-2.5">
+                    <!-- Auth Trigger -->
+                    <div id="auth-nav-container">
+                        <button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-amber-200 border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-user text-sc-gold"></i>
+                            <span class="hidden sm:inline">Tài Khoản</span>
+                            </button>
+                    </div>
+
+                    <!-- Direct Order / DPP button -->
+                    <button id="nav-primary-btn" onclick="handlePrimaryActionClick()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5">
+                        <i id="nav-primary-icon" class="fa-solid fa-cart-shopping"></i>
+                        <span id="nav-primary-text" class="hidden md:inline">Đặt Mua Mắm</span>
+                        <span id="nav-primary-text-mobile" class="md:hidden">Mua</span>
+                    </button>
+
+                    <!-- Mobile Toggle -->
+                    <button onclick="toggleMobileMenu()" class="xl:hidden p-2 text-amber-200 hover:text-white rounded-lg hover:bg-sc-red-800 transition">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-sc-red-950 border-t border-sc-gold/30 px-5 py-4 space-y-3 text-sm shadow-2
